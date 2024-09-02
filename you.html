@@ -15,6 +15,7 @@
             overflow: hidden;
             text-align: center;
         }
+
         .container {
             max-width: 800px;
             margin: 20px auto;
@@ -27,42 +28,56 @@
             overflow-y: auto;
             max-height: 80vh;
         }
+
         .container::-webkit-scrollbar {
             width: 10px;
         }
+
         .container::-webkit-scrollbar-thumb {
             background-color: #d0a0f0;
             border-radius: 5px;
         }
+
         h1 {
             font-size: 28px;
-            color: #ffffff;
             margin-bottom: 20px;
             text-shadow: 0 0 10px #d0a0f0;
+            background: linear-gradient(90deg, #d0a0f0, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
+
         p {
             font-size: 18px;
             line-height: 1.6;
             text-align: left;
             margin: 0;
             padding: 0;
+            background: linear-gradient(90deg, #d0a0f0, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
+
         .highlight {
             color: #d0a0f0;
         }
+
         .italic {
             font-style: italic;
         }
+
         .bold {
             font-weight: bold;
         }
+
         .highlight-variation {
-            color: #ffffff;
             font-style: italic;
         }
+
         .highlight-variation:nth-child(2n) {
-            color: #d0a0f0;
+            color: #ffffff;
         }
+
         .close-button {
             position: absolute;
             top: 10px;
@@ -78,6 +93,7 @@
             transition: background 0.3s, color 0.3s;
             z-index: 1000;
         }
+
         .close-button:hover {
             background: #171020;
             color: #ffffff;
@@ -90,12 +106,11 @@
         <h1>Sobre você princesa, o que eu sei em dois dias...</h1>
         <p>
             Começamos meio mal <span class="italic">kk</span>, começamos com você ficando triste achando que eu tinha reclamado de você na chamada, e eu não fiz isso, viu?<br><br>
-            Pelo pouco que eu te conheço é o pouco que eu tenho a dizer por hora, mas o suficiente para saber que você é uma menina incrível e dedicada, que se esforça bastante para conversar e quer sempre estar por perto. Eu não sei o que você viu em mim sinceramente.<br><br>
-            Posso dizer que gosto muito do teu jeito, e não concordo quando fala negativamente da sua aparência. Na verdade, você é linda, você que deve parar para ver isso, linda demais.<br><br>
-            Com o tempo que a gente for se conhecendo melhor, tenho certeza que vou ter muitas coisas para falar contigo ainda, e eu não sei sinceramente, gostaria que pudesse me responder essa parte aqui: como você é realmente? Eu não sei se às vezes sou chato ou entediante, ou se não gosta de conversar muito comigo. Tem alguma coisa que te prende ou deixa você mais travada em fazer novas amizades? Queria conhecer a verdadeira Ju Alice :)<br><br>
+            Pelo pouco que eu te conheço é o pouco que eu tenho a dizer por ora, mas o suficiente para saber que você é uma menina incrível e dedicada, que se esforça bastante para conversar e quer sempre estar por perto. Eu não sei o que você viu em mim, sinceramente.<br><br>
+            Posso dizer que gosto muito do teu jeito e não concordo quando fala negativamente da sua aparência. Na verdade, você é linda, você que deve parar para ver isso, linda demais.<br><br>
+            Com o tempo que a gente for se conhecendo melhor, tenho certeza que vou ter muitas coisas para falar contigo ainda, e eu não sei, sinceramente, gostaria que pudesse me responder essa parte aqui: como você é realmente? Eu não sei se às vezes sou chato ou entediante, ou se não gosta de conversar muito comigo. Tem alguma coisa que te prende ou deixa você mais travada em fazer novas amizades? Queria conhecer a verdadeira Ju Alice :)<br><br>
             Enfim, pelo pouco que te conheço, entendo seu carisma e gentileza. Eu gosto de você, você é muito incrível, e tenho certeza que seremos ótimos amigos em um futuro bem próximo! :D
         </p>
     </div>
 </body>
 </html>
-
