@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oi Princesa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #171020;
+            color: #ffffff;
+            font-family: 'Ubuntu', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            background: linear-gradient(90deg, #e1baff, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .button {
+            background-color: #162b6b;
+            border: 2px solid #ffffff;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 15px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .tv-on {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #171020;
+            border: 2px solid #ffffff;
+            border-radius: 15px;
+            padding: 20px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            z-index: 1000;
+            animation: fadeIn 0.5s;
+        }
+
+        .tv-off {
+            animation: fadeOut 0.5s;
+        }
+
+        .tv-on h2 {
+            margin-top: 0;
+            color: #ffffff;
+            font-size: 22px;
+            background: linear-gradient(90deg, #e1baff, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tv-on p {
+            color: #ffffff;
+            margin-bottom: 20px;
+            font-size: 16px;
+            line-height: 1.5;
+            background: linear-gradient(90deg, #e1baff, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ffffff;
+            color: #171020;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .close-button:hover {
+            background: #171020;
+            color: #ffffff;
+        }
+
+        .ver-button {
+            background-color: #162b6b;
+            border: 2px solid #ffffff;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 15px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .ver-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translate(-50%, -40%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translate(-50%, -50%); }
+            to { opacity: 0; transform: translate(-50%, -60%); }
+        }
+
+        @media (max-width: 400px) {
+            .button {
+                font-size: 16px;
+                padding: 8px 15px;
+            }
+
+            .tv-on {
+                padding: 15px;
+                width: 95%;
+            }
+
+            .ver-button {
+                font-size: 16px;
+                padding: 8px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Oi princesa, tudo bem? Escolha uma dessas coisas aqui:</h1>
+    <div class="button-container">
+        <a href="#" class="button" onclick="showContainer('eu')">Eu</a>
+        <a href="#" class="button" onclick="showContainer('voce')">Você</a>
+    </div>
+
+    <div id="container" class="tv-on">
+        <button class="close-button" onclick="hideContainer()">×</button>
+        <h2 id="container-title">Título</h2>
+        <p id="container-description">Descrição</p>
+        <a id="ver-button" class="ver-button" href="#">Ver</a>
+    </div>
+
+    <script>
+        function showContainer(type) {
+            const container = document.getElementById('container');
+            const title = document.getElementById('container-title');
+            const description = document.getElementById('container-description');
+            const verButton = document.getElementById('ver-button');
+            
+            if (type === 'eu') {
+                title.textContent = 'Logo eu princesa? kk';
+                description.textContent = 'Essa sessão vai falar um pouquinho de coisas da minha cabeça. Se quiser ver, clique em "Ver". Se quiser mudar, é só voltar pelo botão de fechar no canto superior direito. Espero que goste!';
+                verButton.href = 'my.html';
+            } else if (type === 'voce') {
+                title.textContent = 'Bom... sobre você princesa';
+                description.textContent = 'Eu tenho algumas coisas a comentar...';
+                verButton.href = 'you.html';
+            }
+            
+            container.classList.remove('tv-off');
+            container.style.display = 'block';
+        }
+
+        function hideContainer() {
+            const container = document.getElementById('container');
+            container.classList.add('tv-off');
+            setTimeout(() => {
+                container.style.display = 'none';
+                container.classList.remove('tv-off');
+            }, 500); // Tempo da animação
+        }
+    </script>
+</body>
+</html>
+
