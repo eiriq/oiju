@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diário</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            background-color: #2b211f;
+            color: #faf7f6;
+            font-family: 'Ubuntu Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        body.theme-nay {
+            background-color: #2b1f2b;
+            color: #d09efb;
+        }
+
+        .profile-picture {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            border: 4px solid #ffb5a0;
+            transition: border-color 0.3s;
+            cursor: pointer;
+        }
+
+        body.theme-nay .profile-picture {
+            border-color: #d09efb;
+        }
+
+        .profile-container {
+            position: absolute;
+            top: 80px;
+            right: 20px;
+            background-color: #2b211f;
+            padding: 10px;
+            border-radius: 10px;
+            border: 4px solid #ffb5a0;
+            display: none;
+            transition: background-color 0.3s, border-color 0.3s;
+            width: 200px;
+            z-index: 100;
+        }
+
+        body.theme-nay .profile-container {
+            background-color: #2b1f2b;
+            border-color: #d09efb;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #ffb5a0;
+        }
+
+        body.theme-nay input:checked + .slider {
+            background-color: #d09efb;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .info-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #ffb5a0;
+            color: #2b211f;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.theme-nay .info-button {
+            background-color: #d09efb;
+            color: #2b1f2b;
+        }
+
+        .note-container {
+            width: 90%;
+            max-width: 800px;
+            height: 70vh;
+            border: 3px solid #ffb5a0;
+            padding: 20px;
+            box-sizing: border-box;
+            margin-top: 20px;
+            position: relative;
+            transition: border-color 0.3s;
+            overflow-y: auto; /* Habilitar a rolagem */
+        }
+
+        body.theme-nay .note-container {
+            border-color: #d09efb;
+        }
+
+        .note-area {
+            width: 100%;
+            height: calc(100% - 60px);
+            background: transparent;
+            border: none;
+            color: #faf7f6;
+            font-size: 18px;
+            outline: none;
+            resize: none;
+            padding: 10px;
+            box-sizing: border-box;
+            transition: color 0.3s;
+        }
+
+        body.theme-nay .note-area {
+            color: #d09efb;
+        }
+
+        .note-buttons {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+        }
+
+        .note-button {
+            background-color: #ffb5a0;
+            color: #2b211f;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.theme-nay .note-button {
+            background-color: #d09efb;
+            color: #2b1f2b;
+        }
+
+        .note-button:hover {
+            opacity: 0.8;
+        }
+
+        .theme-toggle-text {
+            color: #ffb5a0; /* Cor padrão */
+        }
+
+        body.theme-nay .theme-toggle-text {
+            color: #d09efb; /* Cor no tema Nay */
+        }
+
+        /* Estilo para a barra de rolagem moderna */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #2b211f; /* Cor de fundo do trilho da barra de rolagem */
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ffb5a0; /* Cor do polegar da barra de rolagem */
+            border-radius: 10px; /* Cantos arredondados */
+        }
+
+        body.theme-nay ::-webkit-scrollbar-thumb {
+            background: #d09efb; /* Cor do polegar da barra de rolagem no tema Nay */
+        }
+
+        /* Estilo para o botão X de fechar */
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 80px; /* Ajustado para ficar ao lado do perfil */
+            background-color: #ffb5a0;
+            color: #2b211f;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            z-index: 101; /* Para garantir que o botão fique sobre outros elementos */
+        }
+
+        body.theme-nay .close-button {
+            background-color: #d09efb;
+            color: #2b1f2b;
+        }
+
+        .close-button i {
+            font-size: 16px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="absolute top-4 right-4 flex items-center">
+        <img id="profilePic" src="perfil.jpeg" alt="Profile picture" class="profile-picture">
+        <div id="profileContainer" class="profile-container">
+            <div class="text theme-toggle-text">
+                <p class="mb-2">Alterar para tema Nay:</p>
+                <label class="switch">
+                    <input type="checkbox" id="themeToggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+        <div id="closeButton" class="close-button">
+            <i class="fas fa-times"></i>
+        </div>
+    </div>
+
+    <div id="infoButton" class="info-button">i</div>
+
+    <div class="note-container">
+        <textarea id="noteArea" class="note-area" placeholder="Escreva aqui..."></textarea>
+        <div class="note-buttons">
+            <button class="note-button" onclick="saveNote()">Salvar</button>
+            <button class="note-button" onclick="downloadNote()">Baixar</button>
+        </div>
+    </div>
+
+    <script>
+        const profilePic = document.getElementById('profilePic');
+        const profileContainer = document.getElementById('profileContainer');
+        const themeToggle = document.getElementById('themeToggle');
+        const closeButton = document.getElementById('closeButton');
+        const infoButton = document.getElementById('infoButton');
+
+        profilePic.addEventListener('click', () => {
+            profileContainer.style.display = profileContainer.style.display === 'none' || profileContainer.style.display === '' ? 'block' : 'none';
+        });
+
+        infoButton.addEventListener('click', () => {
+            profileContainer.style.display = profileContainer.style.display === 'none' || profileContainer.style.display === '' ? 'block' : 'none';
+        });
+
+        themeToggle.addEventListener('change', () => {
+            document.body.classList.toggle('theme-nay', themeToggle.checked);
+        });
+
+        closeButton.addEventListener('click', () => {
+            window.location.href = "home.html";
+        });
+
+        function saveNote() {
+            localStorage.setItem('savedNote', document.getElementById('noteArea').value);
+            alert('Nota salva com sucesso!');
+        }
+
+        function loadNote() {
+            const savedNote = localStorage.getItem('savedNote');
+            if (savedNote) {
+                document.getElementById('noteArea').value = savedNote;
+            }
+        }
+
+        function downloadNote() {
+            const blob = new Blob([document.getElementById('noteArea').value], { type: 'text/plain;charset=utf-8' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'diario.txt';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        window.onbeforeunload = function() {
+            if (document.getElementById('noteArea').value !== localStorage.getItem('savedNote')) {
+                return 'Você tem alterações não salvas. Tem certeza de que deseja sair?';
+            }
+        };
+
+        window.onload = loadNote;
+
+        document.addEventListener('click', (event) => {
+            if (!profilePic.contains(event.target) && !profileContainer.contains(event.target) && !infoButton.contains(event.target)) {
+                profileContainer.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
+

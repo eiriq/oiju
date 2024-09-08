@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atualizações</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #2c201f;
+            color: #ffb19d;
+            font-family: 'Ubuntu Sans', sans-serif;
+        }
+        .update-item {
+            cursor: pointer;
+            padding: 10px;
+            border-bottom: 1px solid #ffb19d;
+            transition: background-color 0.3s ease;
+        }
+        .update-item:hover {
+            background-color: #3a2b23;
+        }
+        .update-content {
+            display: none;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ffb19d;
+            border-radius: 5px;
+            background-color: #3a2b23;
+        }
+        .update-content.show {
+            display: block;
+        }
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #ffb19d;
+            color: #2c201f;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            border: 2px solid #ffb19d;
+        }
+        .close-button:hover {
+            background-color: #ff9b8d;
+            color: #2c201f;
+        }
+    </style>
+</head>
+<body>
+    <div class="relative min-h-screen p-8">
+        <div class="text-center mb-6">
+            <h1 class="text-4xl font-bold">Novidades</h1>
+            <div class="absolute top-0 right-0 p-4">
+                <span class="close-button" onclick="window.location.href='index.html'">×</span>
+            </div>
+        </div>
+        <div class="max-w-3xl mx-auto">
+            <div class="update-item" onclick="toggleContent('update1')">
+                <div class="flex justify-between">
+                    <span>8 de setembro</span>
+                    <button class="text-2xl">›</button>
+                </div>
+                <div id="update1" class="update-content">
+                    Postagem do site no GitHub Pages, o site agora está disponível para ser utilizado em celulares e computadores.
+                </div>
+            </div>
+            <div class="update-item" onclick="toggleContent('update2')">
+                <div class="flex justify-between">
+                    <span>7 de setembro</span>
+                    <button class="text-2xl">›</button>
+                </div>
+                <div id="update2" class="update-content">
+                    Site finalizado, pequenos erros corrigidos e funções adicionadas.
+                </div>
+            </div>
+            <div class="update-item" onclick="toggleContent('update3')">
+                <div class="flex justify-between">
+                    <span>1 de setembro</span>
+                    <button class="text-2xl">›</button>
+                </div>
+                <div id="update3" class="update-content">
+                    Projeto do site iniciado.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleContent(id) {
+            const content = document.getElementById(id);
+            if (content.classList.contains('show')) {
+                content.classList.remove('show');
+            } else {
+                // Hide all other contents
+                document.querySelectorAll('.update-content').forEach((item) => item.classList.remove('show'));
+                content.classList.add('show');
+            }
+        }
+    </script>
+</body>
+</html>
+

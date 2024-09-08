@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animações</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            background-color: #2b211f;
+            color: #faf7f6;
+            font-family: 'Ubuntu Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        body.theme-nay {
+            background-color: #2b1f2b;
+            color: #d09efb;
+        }
+
+        .profile-picture {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            border: 4px solid #ffb5a0;
+            transition: border-color 0.3s;
+            cursor: pointer;
+        }
+
+        body.theme-nay .profile-picture {
+            border-color: #d09efb;
+        }
+
+        .profile-container {
+            position: absolute;
+            top: 80px;
+            right: 20px;
+            background-color: #2b211f;
+            padding: 10px;
+            border-radius: 10px;
+            border: 4px solid #ffb5a0;
+            display: none;
+            transition: background-color 0.3s, border-color 0.3s;
+            width: 200px;
+            z-index: 100;
+        }
+
+        body.theme-nay .profile-container {
+            background-color: #2b1f2b;
+            border-color: #d09efb;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #ffb5a0;
+        }
+
+        body.theme-nay input:checked + .slider {
+            background-color: #d09efb;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .info-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #ffb5a0;
+            color: #2b211f;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.theme-nay .info-button {
+            background-color: #d09efb;
+            color: #2b1f2b;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 80px;
+            background-color: #ffb5a0;
+            color: #2b211f;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            z-index: 101;
+        }
+
+        body.theme-nay .close-button {
+            background-color: #d09efb;
+            color: #2b1f2b;
+        }
+
+        .close-button i {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+        }
+
+        .category-button {
+            margin: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            background-color: #ffb5a0;
+            color: #2b211f;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.theme-nay .category-button {
+            background-color: #d09efb;
+            color: #2b1f2b;
+        }
+
+        .category-button:hover {
+            background-color: #ff9b8d;
+            color: #2b211f;
+            transform: scale(1.1);
+            box-shadow: 0 0 10px 2px #ffb5a0;
+        }
+
+        body.theme-nay .category-button:hover {
+            background-color: #b79efb;
+            color: #2b1f2b;
+            box-shadow: 0 0 10px 2px #d09efb;
+        }
+
+        .search-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+            opacity: 0;
+            margin-top: 20px;
+        }
+
+        .search-container.active {
+            max-height: 100px;
+            opacity: 1;
+        }
+
+        .search-input {
+            padding: 10px;
+            border: 2px solid #ffb5a0;
+            border-radius: 20px;
+            width: 300px;
+            outline: none;
+            font-size: 16px;
+            background-color: #202738;
+            color: #faf7f6;
+            transition: border-color 0.3s;
+        }
+
+        body.theme-nay .search-input {
+            border-color: #d09efb;
+        }
+
+        .search-input::placeholder {
+            color: #faf7f6;
+        }
+    </style>
+</head>
+<body>
+    <div class="absolute top-4 right-4 flex items-center">
+        <img id="profilePic" src="perfil.jpeg" alt="Profile picture" class="profile-picture">
+        <div id="profileContainer" class="profile-container">
+            <div class="text theme-toggle-text">
+                <p class="mb-2">Alterar para tema Nay:</p>
+                <label class="switch">
+                    <input type="checkbox" id="themeToggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+        <div id="closeButton" class="close-button">
+            <i class="fas fa-times"></i>
+        </div>
+    </div>
+
+    <div id="infoButton" class="info-button">i</div>
+
+    <div class="container">
+        <div id="mainTitle" class="text-2xl font-bold mb-6">Princesa, o que você deseja encontrar hoje?</div>
+        <button id="filmButton" class="category-button" data-url="https://superfilmes.blue/">Filme</button>
+        <button id="serieButton" class="category-button" data-url="https://superfilmes.blue/">Série</button>
+        <button id="animeButton" class="category-button" data-url="https://animefire.plus/pesquisar/">Anime</button>
+        <button id="mangaButton" class="category-button" data-url="https://mangadex.org/search?q=">Mangá</button>
+
+        <div id="searchContainer" class="search-container">
+            <input type="text" id="searchInput" class="search-input" placeholder="Digite o nome do que você procura...">
+        </div>
+    </div>
+
+    <script>
+        const profilePic = document.getElementById('profilePic');
+        const profileContainer = document.getElementById('profileContainer');
+        const infoButton = document.getElementById('infoButton');
+        const themeToggle = document.getElementById('themeToggle');
+        const closeButton = document.getElementById('closeButton');
+        const searchContainer = document.getElementById('searchContainer');
+        const searchInput = document.getElementById('searchInput');
+        const categoryButtons = document.querySelectorAll('.category-button');
+        let searchUrl = '';
+
+        profilePic.addEventListener('click', (event) => {
+            event.stopPropagation();
+            profileContainer.style.display = profileContainer.style.display === 'none' || profileContainer.style.display === '' ? 'block' : 'none';
+        });
+
+        infoButton.addEventListener('click', () => {
+            alert("Olá, meu amor, aqui, você pode escolher várias coisas para você assistir! Escolha entre uma das categorias e pesquise pelo nome, vou tentar encontrar para voce assitir ou ler :)");
+        });
+
+        themeToggle.addEventListener('change', () => {
+            document.body.classList.toggle('theme-nay', themeToggle.checked);
+        });
+
+        closeButton.addEventListener('click', () => {
+            window.location.href = "home.html";
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!searchContainer.contains(event.target) && !event.target.classList.contains('category-button')) {
+                searchContainer.classList.remove('active');
+            }
+            if (!profileContainer.contains(event.target) && event.target !== profilePic) {
+                profileContainer.style.display = 'none';
+            }
+        });
+
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                searchUrl = button.getAttribute('data-url');
+                searchContainer.classList.remove('active');
+                setTimeout(() => {
+                    searchContainer.classList.add('active');
+                }, 10);
+            });
+        });
+
+        searchInput.addEventListener('keyup', (event) => {
+            if (event.key === 'Enter' && searchInput.value.trim() !== '') {
+                let searchQuery = encodeURIComponent(searchInput.value.trim());
+                if (searchUrl.includes('search?q=')) {
+                    window.open(searchUrl + searchQuery, '_blank');
+                } else {
+                    window.open(searchUrl + searchQuery, '_blank');
+                }
+                searchInput.value = '';
+                searchContainer.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
+
