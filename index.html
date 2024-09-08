@@ -1,208 +1,287 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oi Princesa</title>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+    <title>Página de Login</title>
+    <script src="https://unpkg.com/react/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
-            background-color: #171020;
-            color: #ffffff;
-            font-family: 'Ubuntu', sans-serif;
-            text-align: center;
+            background-color: #2b211f;
+            font-family: 'Ubuntu Sans', sans-serif;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
             margin: 0;
             padding: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            min-height: 100vh;
-            overflow: hidden;
-        }
-
-        h1 {
-            margin-bottom: 20px;
-            font-size: 24px;
-            font-weight: 700;
-            color: #ffffff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-            background: linear-gradient(90deg, #e1baff, #ffffff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .button-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .button {
-            background-color: #162b6b;
-            border: 2px solid #ffffff;
-            color: #ffffff;
-            padding: 10px 20px;
-            border-radius: 15px;
-            text-decoration: none;
-            font-size: 18px;
-            font-weight: bold;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-        }
-
-        .tv-on {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #171020;
-            border: 2px solid #ffffff;
-            border-radius: 15px;
-            padding: 20px;
-            width: 90%;
-            max-width: 500px;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-            z-index: 1000;
-            animation: fadeIn 0.5s;
-        }
-
-        .tv-off {
-            animation: fadeOut 0.5s;
-        }
-
-        .tv-on h2 {
-            margin-top: 0;
-            color: #ffffff;
-            font-size: 22px;
-            background: linear-gradient(90deg, #e1baff, #ffffff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .tv-on p {
-            color: #ffffff;
-            margin-bottom: 20px;
-            font-size: 16px;
-            line-height: 1.5;
-            background: linear-gradient(90deg, #e1baff, #ffffff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .close-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #ffffff;
-            color: #171020;
-            border: none;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            font-size: 20px;
-            cursor: pointer;
-            transition: background 0.3s, color 0.3s;
-        }
-
-        .close-button:hover {
-            background: #171020;
-            color: #ffffff;
-        }
-
-        .ver-button {
-            background-color: #162b6b;
-            border: 2px solid #ffffff;
-            color: #ffffff;
-            padding: 10px 20px;
-            border-radius: 15px;
-            text-decoration: none;
-            font-size: 18px;
-            font-weight: bold;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .ver-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translate(-50%, -40%); }
-            to { opacity: 1; transform: translate(-50%, -50%); }
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
         }
 
-        @keyframes fadeOut {
-            from { opacity: 1; transform: translate(-50%, -50%); }
-            to { opacity: 0; transform: translate(-50%, -60%); }
+        /* Animação TV ON e TV OFF */
+        .tv-on-animation {
+            animation: tvOn 0.5s ease-in-out forwards;
         }
 
-        @media (max-width: 400px) {
-            .button {
-                font-size: 16px;
-                padding: 8px 15px;
-            }
+        .tv-off-animation {
+            animation: tvOff 0.5s ease-in-out forwards;
+        }
 
-            .tv-on {
-                padding: 15px;
-                width: 95%;
+        @keyframes tvOn {
+            0% {
+                transform: scaleY(0);
             }
+            40% {
+                transform: scaleY(1.2);
+            }
+            60% {
+                transform: scaleY(0.8);
+            }
+            80% {
+                transform: scaleY(1.05);
+            }
+            100% {
+                transform: scaleY(1);
+            }
+        }
 
-            .ver-button {
-                font-size: 16px;
-                padding: 8px 15px;
+        @keyframes tvOff {
+            0% {
+                transform: scaleY(1);
             }
+            20% {
+                transform: scaleY(1.05);
+            }
+            50% {
+                transform: scaleY(0.8);
+            }
+            80% {
+                transform: scaleY(1.2);
+            }
+            100% {
+                transform: scaleY(0);
+            }
+        }
+
+        /* Efeitos de brilho */
+        .btn-brilho {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .btn-brilho:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px 2px #feb2a2;
+        }
+
+        .link-brilho:hover {
+            text-decoration: underline;
+            color: #ff7b7b;
+        }
+
+        /* Botão de notificações */
+        .notification-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #feb2a2;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 0 10px 2px #feb2a2;
+            transition: box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
+        }
+
+        .notification-button:hover {
+            box-shadow: 0 0 15px 3px #feb2a2;
+            background-color: #ff9b8d;
+        }
+
+        .notification-button img {
+            width: 24px;
+            height: 24px;
         }
     </style>
 </head>
 <body>
-    <h1>Oi princesa, tudo bem? Escolha uma dessas coisas aqui:</h1>
-    <div class="button-container">
-        <a href="#" class="button" onclick="showContainer('eu')">Eu</a>
-        <a href="#" class="button" onclick="showContainer('voce')">Você</a>
+    <!-- Botão de Notificações -->
+    <div class="notification-button" onclick="window.location.href='updates.html'">
+        <img src="notificacao.png" alt="Notificações" />
     </div>
 
-    <div id="container" class="tv-on">
-        <button class="close-button" onclick="hideContainer()">×</button>
-        <h2 id="container-title">Título</h2>
-        <p id="container-description">Descrição</p>
-        <a id="ver-button" class="ver-button" href="#">Ver</a>
-    </div>
+    <div id="main"></div>
 
-    <script>
-        function showContainer(type) {
-            const container = document.getElementById('container');
-            const title = document.getElementById('container-title');
-            const description = document.getElementById('container-description');
-            const verButton = document.getElementById('ver-button');
-            
-            if (type === 'eu') {
-                title.textContent = 'Logo eu princesa? kk';
-                description.textContent = 'Essa sessão vai falar um pouquinho de coisas da minha cabeça. Se quiser ver, clique em "Ver". Se quiser mudar, é só voltar pelo botão de fechar no canto superior direito. Espero que goste!';
-                verButton.href = 'my.html';
-            } else if (type === 'voce') {
-                title.textContent = 'Bom... sobre você princesa';
-                description.textContent = 'Eu tenho algumas coisas a comentar...';
-                verButton.href = 'you.html';
-            }
-            
-            container.classList.remove('tv-off');
-            container.style.display = 'block';
+    <script type="text/babel">
+        function App() {
+            const [showLogin, setShowLogin] = React.useState(false);
+            const [showPassword, setShowPassword] = React.useState(false);
+            const [showRecovery, setShowRecovery] = React.useState(false);
+            const [securityAnswer, setSecurityAnswer] = React.useState('');
+            const [username, setUsername] = React.useState('');
+            const [password, setPassword] = React.useState('');
+            const [containerClass, setContainerClass] = React.useState('tv-on-animation');
+
+            const togglePasswordVisibility = () => {
+                setShowPassword(!showPassword);
+            };
+
+            const handleRecoveryClick = () => {
+                setContainerClass('tv-on-animation');
+                setShowRecovery(true);
+            };
+
+            const handleCloseRecovery = () => {
+                setContainerClass('tv-off-animation');
+                setTimeout(() => {
+                    setShowRecovery(false);
+                    setSecurityAnswer(''); // Limpar resposta de segurança
+                    setContainerClass('tv-on-animation');
+                }, 500);
+            };
+
+            const handleCloseLogin = () => {
+                setContainerClass('tv-off-animation');
+                setTimeout(() => {
+                    setShowLogin(false);
+                    setUsername(''); // Limpar nome de usuário
+                    setPassword(''); // Limpar senha
+                }, 500);
+            };
+
+            const handleSecurityAnswer = () => {
+                const correctAnswer = "meu futuro namorado";
+                if (securityAnswer.trim().toLowerCase() === correctAnswer) {
+                    alert("Você acertou, meu amor! A senha é: 'euteamodemais'");
+                    setContainerClass('tv-off-animation');
+                    setTimeout(() => {
+                        setShowRecovery(false);
+                        setSecurityAnswer(''); // Limpar resposta de segurança
+                        setContainerClass('tv-on-animation');
+                    }, 500);
+                } else {
+                    setContainerClass('bg-red-500 tv-on-animation');
+                    alert("Senha incorreta! Acho que você não é minha princesa, entre em contato com Henrique caso ache que isso é um erro.");
+                    setTimeout(() => {
+                        setShowRecovery(false);
+                        setSecurityAnswer(''); // Limpar resposta de segurança
+                        setContainerClass('tv-on-animation');
+                    }, 500);
+                }
+            };
+
+            const handleLogin = () => {
+                const validUsers = ["gi", "Gi", "ghizz", "Ghizz", "Princesa", "princesa", "Nay", "nay", "Nayara", "nayara"];
+                const validPassword = "euteamodemais";
+
+                if (validUsers.includes(username) && password === validPassword) {
+                    window.location.href = "home.html";
+                } else {
+                    alert("A senha ou usuário estão incorretos! Caso não lembre de sua senha ou nome de usuário, clique em 'Esqueci minha senha'.");
+                }
+            };
+
+            return (
+                <div className="flex items-center justify-center min-h-screen">
+                    {!showLogin ? (
+                        <div className="text-center">
+                            <h1 className="text-4xl font-bold text-[#feb2a2] mb-6">Olá, princesa! Vamos entrar?</h1>
+                            <button
+                                onClick={() => {
+                                    setShowLogin(true);
+                                    setContainerClass('tv-on-animation');
+                                }}
+                                className="bg-[#feb2a2] text-[#2b211f] font-bold py-3 px-8 rounded-full btn-brilho"
+                            >
+                                Entrar
+                            </button>
+                        </div>
+                    ) : (
+                        <div className={`${containerClass} bg-[#2b211f] p-8 rounded-2xl shadow-lg w-80 relative border-4 border-[#ffb5a0]`}>
+                            {!showRecovery ? (
+                                <div>
+                                    <div className="absolute -top-12 left-1/2 transform -translate-x-1/2">
+                                        <img src="perfil.jpeg" alt="Profile picture" className="w-24 h-24 rounded-full border-4 border-[#ffb5a0]" />
+                                    </div>
+                                    <div className="absolute top-2 right-2 cursor-pointer text-[#ffb5a0] text-2xl" onClick={handleCloseLogin}>
+                                        <i className="fas fa-times"></i>
+                                    </div>
+                                    <div className="mt-16">
+                                        <div className="mb-4">
+                                            <label className="block text-[#ffb5a0] mb-2" htmlFor="username">Usuário</label>
+                                            <input
+                                                type="text"
+                                                id="username"
+                                                value={username}
+                                                onChange={(e) => setUsername(e.target.value)}
+                                                autoComplete="off"
+                                                className="w-full p-2 rounded-full bg-gray-800 text-[#ffb5a0] focus:outline-none border border-[#ffb5a0]"
+                                            />
+                                        </div>
+                                        <div className="mb-4">
+                                            <label className="block text-[#ffb5a0] mb-2" htmlFor="password">Senha</label>
+                                            <div className="relative">
+                                                <input
+                                                    type={showPassword ? "text" : "password"}
+                                                    id="password"
+                                                    value={password}
+                                                    onChange={(e) => setPassword(e.target.value)}
+                                                    autoComplete="off"
+                                                    className="w-full p-2 rounded-full bg-gray-800 text-[#ffb5a0] focus:outline-none border border-[#ffb5a0]"
+                                                />
+                                                <i
+                                                    className={`fas ${showPassword ? "fa-eye-slash" : "fa-eye"} absolute right-3 top-3 text-[#ffb5a0] cursor-pointer`}
+                                                    onClick={togglePasswordVisibility}
+                                                ></i>
+                                            </div>
+                                        </div>
+                                        <button onClick={handleLogin} className="w-full py-2 rounded-full bg-[#ffb5a0] text-[#2b211f] btn-brilho">Entrar</button>
+                                        <div className="mt-4 text-center">
+                                            <a href="#" className="text-[#ffb5a0] link-brilho" onClick={handleRecoveryClick}>Esqueci minha senha</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="tv-on-animation">
+                                    <div className="absolute top-2 right-2 cursor-pointer text-[#ffb5a0] text-2xl" onClick={handleCloseRecovery}>
+                                        <i className="fas fa-times"></i>
+                                    </div>
+                                    <div className="mt-4">
+                                        <h2 className="text-[#ffb5a0] text-center mb-4">Recuperar Senha</h2>
+                                        <div className="mb-4">
+                                            <label className="block text-[#ffb5a0] mb-2" htmlFor="security-question">MFN... o que significa?</label>
+                                            <input
+                                                type="text"
+                                                id="security-question"
+                                                value={securityAnswer}
+                                                onChange={(e) => setSecurityAnswer(e.target.value)}
+                                                autoComplete="off"
+                                                className="w-full p-2 rounded-full bg-gray-800 text-[#ffb5a0] focus:outline-none border border-[#ffb5a0]"
+                                            />
+                                        </div>
+                                        <button onClick={handleSecurityAnswer} className="w-full py-2 rounded-full bg-[#ffb5a0] text-[#2b211f] btn-brilho">Recuperar</button>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    )}
+                </div>
+            );
         }
 
-        function hideContainer() {
-            const container = document.getElementById('container');
-            container.classList.add('tv-off');
-            setTimeout(() => {
-                container.style.display = 'none';
-                container.classList.remove('tv-off');
-            }, 500); // Tempo da animação
-        }
+        ReactDOM.render(<App />, document.getElementById('main'));
     </script>
 </body>
 </html>
-
